@@ -1,4 +1,5 @@
 import random
+from uuid import uuid1 as uuid
 
 class User:
     def __init__(self,name):
@@ -12,6 +13,7 @@ class Room:
     def __init__(self,id):
         self.__members=[]
         self.__id=id
+        self.__rconpass = uuid()
 
     def getId(self):
         return self.__id
@@ -19,6 +21,8 @@ class Room:
     def addMember(self,user):
         if (not self.memberExists(user.getName())):
             self.__members.append(user)
+        else:
+            raise 'Member already exists.'
 
     def getMembers(self):
         return self.__members
@@ -28,6 +32,9 @@ class Room:
             if member.getName() == username:
                 return True
         return False
+
+    def getRconpass(self):
+        return self.__rconpass
 
 
 rooms = {}# id : room
@@ -40,7 +47,7 @@ def __getRoomById(roomId):
 def enterGame(roomId,username):
     room = __getRoomById(roomId)
     if room == None:
-        raise 'room not found'
+        raise 'Room not found.'
     room.addMember(User(username))
 
 def getMembers(roomId):
@@ -50,9 +57,10 @@ def generateRoom(hostName):
     id = generateID()
     rooms[id] = Room(id)
     rooms[id].addMember(User(hostName))
+    return rooms[id].getId(),rooms[id].getRconpass()
 
 def generateID():
-    id = random.random() * 10000
+    id = int(random.random() * 100000)
     while str(id) in rooms:
-        id = random.random() * 10000
-    return id
+        id = int(random.random() * 100000)
+    return str(id)

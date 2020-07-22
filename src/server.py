@@ -15,13 +15,13 @@ def join():
     return render_template('joinRoom.html',roomid=roomId)
 
 # returns waiting room page
-@app.route('/enterroom',methods=['POST'])
+@app.route('/enterwaitingroom',methods=['POST'])
 def enterRoom():
     username = request.form['username']
     roomId = request.form['roomId']
     model.enterGame(roomId,username)
     members = model.getMembers(roomId)
-    return render_template('waitingRoom.html',username=username,members=members)
+    return render_template('waitingRoom.html',isadmin=False,roomid = roomId ,username=username,members=members)
 
 
 # returns create room page
@@ -31,8 +31,16 @@ def getCreatePage():
 
 
 # returns waiting room 
-@app.route('/createroom',methods=['GET'])
+@app.route('/createroom',methods=['POST'])
 def createRoom():
     hostName = request.form['hostName']
-    model.generateRoom(hostName)
-    return render_template('createRoom.html')
+    roomId,rconpass = model.generateRoom(hostName)
+    members = model.getMembers(roomId)
+
+    return render_template('waitingRoom.html',isadmin=True, roomid = roomId,rconpass =rconpass ,username=hostName,members=members)
+
+
+@app.route('/room',methods=['POST'])
+def room():
+    # differenciate between admin and member
+    return 'cool'

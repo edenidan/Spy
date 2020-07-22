@@ -1,6 +1,7 @@
 <html>
     <body>
         <h1>you are {{ username }}</h1>
+        <h1>room {{ roomid }}</h1>
         
         <ul>
             {% for user in members %}
@@ -10,7 +11,16 @@
             {% endfor %}
         </ul>
 
+        {% if isadmin %}
+        <form action="/room" method="POST">
+            <input type="hidden" value="{{ rconpass }}"></input>
+            <input type="submit" value="start"></input>
+        </form>
+        {% endif %}
+
+
     </body>
 
+    
     
 </html>
