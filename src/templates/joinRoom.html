@@ -4,6 +4,7 @@
 
         <form action="/enterwaitingroom" method="POST">
             <input id ="usernameInput" name="username"></input>
+            <input type="hidden" name="uId" value="{{ uId }}"></input>
             <input type="hidden" name="roomId" value="{{ roomid }}"></input>
             <input type="submit" value="join"></input>
         </form>
