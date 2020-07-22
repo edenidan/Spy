@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <h1>you are {{ username }}</h1>
+        
+        <ul>
+            {% for user in members %}
+            <li>
+                {{ user.getName() }}
+            </li>
+            {% endfor %}
+        </ul>
+
+    </body>
+
+    
+</html>

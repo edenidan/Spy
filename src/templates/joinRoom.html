@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <h1>Join to room number: {{roomid}}</h1>
+
+        <form action="/enterroom" method="POST">
+            <input id ="usernameInput" name="username"></input>
+            <input type="hidden" name="roomId" value="{{ roomid }}"></input>
+            <input type="submit" value="join"></input>
+        </form>
+
+
+    </body>
+
+    <script>
+        document.getElementById("usernameInput").focus();
+    </script>
+    
+</html>
