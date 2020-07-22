@@ -21,3 +21,6 @@ def enterRoom():
     members = model.getMembers(roomId)
     return render_template('room.html',username=username,members=members)
     
+@app.route('/createroom',methods=['GET'])
+def createRoom():
+    return render_template('createRoom.html')

@@ -44,3 +44,6 @@ def enterGame(roomId,username):
 
 def getMembers(roomId):
     return __getRoomById(roomId).getMembers()
+
+def generateRoom():
+    pass
