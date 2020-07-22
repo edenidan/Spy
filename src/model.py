@@ -1,3 +1,4 @@
+import random
 
 class User:
     def __init__(self,name):
@@ -45,5 +46,13 @@ def enterGame(roomId,username):
 def getMembers(roomId):
     return __getRoomById(roomId).getMembers()
 
-def generateRoom():
-    pass
+def generateRoom(hostName):
+    id = generateID()
+    rooms[id] = Room(id)
+    rooms[id].addMember(User(hostName))
+
+def generateID():
+    id = random.random() * 10000
+    while str(id) in rooms:
+        id = random.random() * 10000
+    return id
