@@ -2,17 +2,41 @@
     <body>
         <h1>Create Room</h1>
 
-        <form action="/createroom" method="POST">
-            <input id ="usernameInput" name="hostName"></input>
+        <form id="enterForm" action="/enterwaitingroom" method="POST">
+            <input id ="usernameData" type="hidden" name="username"></input>
             <input type="hidden" name="uId" value={{uId}}></input>
-            <input type="submit" value="create"></input>
+            <input id ="roomIdData" type="hidden" name="roomId"></input>
+            <input id="rconpassData" type="hidden" name="rconpass" value=""></input>
         </form>
 
+        
+        <input type="button" onclick="createRoom()">create</input>
+        <input id="usernameInput"></input>
 
     </body>
 
     <script>
+
+
         document.getElementById("usernameInput").focus();
+
+        //this function creates a room and AFTER ITS DONE it submits the form
+        function createRoom(){
+            let http_request = new XMLHttpRequest();
+            http_request.open('GET','/createroom', false);
+            http_request.send();
+            
+            let roomId = http_request.responseText.split(",")[0];
+            let Rconpass = http_request.responseText.split(",")[1];
+
+            document.getElementById("roomIdData").value=roomId;
+            document.getElementById("rconpassData").value=Rconpass;
+            document.getElementById("usernameData").value=document.getElementById("usernameInput").value
+
+            //submit the form and join the room like a normal user
+            //like a normal user except i have the rconpass from the creation action (line 29)
+            document.getElementById("enterForm").submit()
+        }
     </script>
     
 </html>

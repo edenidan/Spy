@@ -1,5 +1,6 @@
 import random
-from uuid import uuid1 as uuid
+from uuid import uuid1
+uuid = lambda : str(uuid1())
 
 class User:
     def __init__(self,name,uId):
@@ -54,7 +55,7 @@ def __getRoomById(roomId):
 # enter a waiting room 
 def enterGame(roomId,username, uId):
     room = __getRoomById(roomId)
-    if room == None:
+    if room is None:
         raise 'Room not found.'
     if not room.memberExists(uId):
         room.addMember(User(username, uId))
@@ -64,11 +65,10 @@ def getMembers(roomId):
     return __getRoomById(roomId).getMembers()
 
 # creates a room with a unique Id
-def generateRoom(hostName, uId):
+def generateRoom():
     id = generateID()
     rooms[id] = Room(id)
-    rooms[id].addMember(User(hostName, uId))
-    return rooms[id].getId(),rooms[id].getRconpass()
+    return id,rooms[id].getRconpass()
 
 # creates a unique 5 digit Id
 def generateID():
@@ -76,3 +76,9 @@ def generateID():
     while str(id) in rooms:
         id = int(random.random() * 100000)
     return str(id)
+
+def correctRconpass(roomId,Rconpass):
+    room = __getRoomById(roomId)
+    if room is None:
+        return False
+    return room.getRconpass() == Rconpass

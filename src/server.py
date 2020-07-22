@@ -23,10 +23,16 @@ def enterRoom():
     username = request.form['username']
     roomId = request.form['roomId']
     uId = request.form['uId']
+    Rconpass = request.form['rconpass']
+
+    #if the client has the correct password he will have the start button on the waiting room
+    admin = False
+    if model.correctRconpass(roomId,Rconpass):
+        admin=True
 
     model.enterGame(roomId,username, uId)
     members = model.getMembers(roomId)
-    return render_template('waitingRoom.html',isadmin=False,roomid = roomId ,username=username,members=members)
+    return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,members=members)
 
 
 # returns create room page
@@ -36,15 +42,11 @@ def getCreatePage():
 
 
 # returns waiting room 
-@app.route('/createroom',methods=['POST'])
+@app.route('/createroom',methods=['GET'])
 def createRoom():
-    hostName = request.form['hostName']
-    uId = request.form['uId']
-
-    roomId,rconpass = model.generateRoom(hostName, uId)
-    members = model.getMembers(roomId)
-
-    return render_template('waitingRoom.html',isadmin=True, roomid = roomId,rconpass =rconpass ,username=hostName,members=members)
+    roomId,rconpass = model.generateRoom()
+    return roomId+','+ rconpass
+    
 
 
 @app.route('/room',methods=['POST'])
