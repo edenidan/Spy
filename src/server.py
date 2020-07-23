@@ -72,6 +72,9 @@ def ping():
     room = model.__getRoomById(roomId)
     hasStarted = room.getStarted()
 
+    if(generalInfo == 'pass'):
+        pass
+
     if(generalInfo == 'member&start'):
         model.ping(roomId,uId)
         members = model.getMembers(roomId)
