@@ -11,7 +11,7 @@
 
         <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
         <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
-        <input id="generalinfoContainer" type="hidden" value="pass"></input>
+        <input id="generalinfoContainer" type="hidden" value="member&start"></input>
         <h1>room {{ roomid }}</h1>
         
         <ul id="membersList">
@@ -58,7 +58,20 @@
 
         function handleResponse(response){
 
-          
+
+
+
+        let newMembersList = response.split('&')[0].split(',')
+        let oldMembersList = getMembers()
+
+        let newMembers = newMembersList.filter(value => !oldMembersList.includes(value))
+        let leftMembers = oldMembersList.filter(value => !newMembersList.includes(value))
+
+        console.log('new: ' + newMembers)
+        console.log('left: ' + leftMembers)
+
+        if (newMembers.length != 0 || leftMembers.length != 0)
+            reRender(newMembers, leftMembers)
        }
    </script>
 
