@@ -1,5 +1,5 @@
 
-setInterval(function(){ ping() },3000);
+setInterval(function(){ ping() },1000);
 
 function ping(){
 

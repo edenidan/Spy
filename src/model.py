@@ -113,7 +113,7 @@ def generateRoom():
 # creates a unique 5 digit Id
 def generateID():
     id = int(random.random() * 100000)
-    while str(id) in rooms or id <= 1000:
+    while str(id) in rooms or id < 10000:
         id = int(random.random() * 100000)
     return str(id)
 
