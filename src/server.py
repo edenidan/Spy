@@ -1,7 +1,6 @@
 import model
 from flask import Flask,render_template,request
 
-
 app = Flask(__name__)
 
 @app.route('/',methods=['GET'])
@@ -32,6 +31,7 @@ def enterRoom():
 
     model.enterGame(roomId,username, uId)
     members = model.getMembers(roomId)
+    print(members)
     return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,userid=uId,members=members)
 
 
@@ -62,7 +62,10 @@ def startroom():
 
     members = model.getMembers(roomId)
     room.start()
-    return render_template('room.html',username=username, userid = userId, roomid=roomId, members=members)
+
+    IsSpy = room.isSpy(userId)
+    location = room.getLocation()
+    return render_template('room.html',isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
 
 @app.route('/getroom',methods=['POST'])
 def getroom():
@@ -71,7 +74,12 @@ def getroom():
     username = request.form['username']
 
     members = model.getMembers(roomId)
-    return render_template('room.html',username=username, userid = userId, roomid=roomId, members=members)
+    room = model.__getRoomById(roomId)
+    model.time.sleep(0.5)
+    IsSpy = room.isSpy(userId)
+    location = room.getLocation()
+
+    return render_template('room.html' , isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
 
 @app.route('/ping',methods=['POST'])
 def ping():

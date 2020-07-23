@@ -1,6 +1,14 @@
 <html>
     <body>
         <h1>you are {{ username }}</h1>
+
+        {% if isspy%}
+            <h1>you are innocent</h1>
+            <h1>the location is {{ location }}</h1>
+        {% else %}
+            <h1>you are the spy!</h1>
+        {% endif %}
+
         <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
         <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
         <input id="generalinfoContainer" type="hidden" value="pass"></input>
