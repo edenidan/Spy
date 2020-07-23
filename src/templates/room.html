@@ -3,7 +3,7 @@
         <h1>you are {{ username }}</h1>
         <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
         <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
-        <input id="generalinfoContainer" type="hidden" value="member&start"></input>
+        <input id="generalinfoContainer" type="hidden" value="pass"></input>
         <h1>room {{ roomid }}</h1>
         
         <ul id="membersList">
@@ -13,15 +13,6 @@
             </li>
             {% endfor %}
         </ul>
-
-        {% if isadmin %}
-        <form action="/startroom" method="POST">
-            <input type="hidden" value="{{ rconpass }}"></input>
-            <input type="hidden" value="{{ roomid}}"></input>
-            <input type="hidden" value="{{ userid}}"></input>
-            <input type="submit" value="start"></input>
-        </form>
-        {% endif %}
 
 
     </body>
@@ -63,28 +54,28 @@
         function handleResponse(response){
 
             console.log(response)
-            let hasStarted = response.split('&')[1] === "True"
+           let hasStarted = response.split('&')[1] == "True"
 
-            if(hasStarted)
-            {
-               // change to start room
-               console.log("game started")
-            }
+           if(hasStarted)
+           {
+              // change to start room
+              console.log("game started")
+           }
+        
+          
         
 
-        
+           let newMembersList = response.split('&')[0].split(',')
+           let oldMembersList = getMembers()
 
-            let newMembersList = response.split('&')[0].split(',')
-            let oldMembersList = getMembers()
+           let newMembers = newMembersList.filter(value => !oldMembersList.includes(value))
+           let leftMembers = oldMembersList.filter(value => !newMembersList.includes(value))
 
-            let newMembers = newMembersList.filter(value => !oldMembersList.includes(value))
-            let leftMembers = oldMembersList.filter(value => !newMembersList.includes(value))
+           console.log('new: ' +newMembers)
+           console.log('left: ' +leftMembers)
 
-            console.log('new: ' +newMembers)
-            console.log('left: ' +leftMembers)
-
-            if(newMembers.length != 0 || leftMembers.length != 0)
-                 reRender(newMembers,leftMembers)
+           if(newMembers.length != 0 || leftMembers.length != 0)
+                reRender(newMembers,leftMembers)
        }
    </script>
 

@@ -32,10 +32,12 @@ class Room:
         self.__lastSeen = {}
         self.__id=id
         self.__rconpass = uuid()
+        self.__hasStarted = False
         set_interval(self.timerHandler,TIMEOUT/1000)
 
 
-        
+    def start(self):
+        self.__hasStarted = True
 
     def timerHandler(self):
         millis = getMillis()
@@ -53,7 +55,9 @@ class Room:
             if m.getId() == uid:
                 return m
         return None
-        
+    
+    def getStarted(self):
+        return self.__hasStarted
 
     def getId(self):
         return self.__id

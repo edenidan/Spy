@@ -49,10 +49,17 @@ def createRoom():
     
 
 
-@app.route('/room',methods=['POST'])
-def room():
-    # differenciate between admin and member
-    return 'cool'
+@app.route('/startroom',methods=['POST'])
+def startroom():
+    roomId = request.form['roomId']
+    userId = request.form['userId']
+
+
+    room = model.__getRoomById(roomId)
+    members = model.getMembers(roomId)
+    
+    room.start()
+    return render_template('room.html', userid = userId, roomid=roomId, members=members)
 
 @app.route('/ping',methods=['POST'])
 def ping():
@@ -60,7 +67,16 @@ def ping():
     json = request.get_json()
     roomId = json['roomid']
     uId = json['userid']
+    generalInfo = json['general']
 
-    model.ping(roomId,uId)
-    members = model.getMembers(roomId)
-    return ','.join([m.getName() for m in members])
+    room = model.__getRoomById(roomId)
+    hasStarted = room.getStarted()
+
+    if(generalInfo == 'member&start'):
+        model.ping(roomId,uId)
+        members = model.getMembers(roomId)
+        return ','.join([m.getName() for m in members]) + '&' + str(hasStarted)
+    
+    
+    return 'invalid request'
+   
