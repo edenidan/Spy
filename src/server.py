@@ -32,7 +32,7 @@ def enterRoom():
 
     model.enterGame(roomId,username, uId)
     members = model.getMembers(roomId)
-    return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,members=members)
+    return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,userid=uId,members=members)
 
 
 # returns create room page
@@ -53,3 +53,14 @@ def createRoom():
 def room():
     # differenciate between admin and member
     return 'cool'
+
+@app.route('/ping',methods=['POST'])
+def ping():
+    # differenciate between admin and member
+    json = request.get_json()
+    roomId = json['roomid']
+    uId = json['userid']
+
+    model.ping(roomId,uId)
+    members = model.getMembers(roomId)
+    return ','.join([m.getName() for m in members])
