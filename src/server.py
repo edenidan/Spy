@@ -51,15 +51,27 @@ def createRoom():
 
 @app.route('/startroom',methods=['POST'])
 def startroom():
-    roomId = request.form['roomId']
-    userId = request.form['userId']
-
+    roomId = request.form['roomid']
+    userId = request.form['userid']
+    username = request.form['username']
+    rconpass = request.form['rconpass']
 
     room = model.__getRoomById(roomId)
+    if room.getRconpass() != rconpass:
+        return 'YOU NO HACK!'
+
     members = model.getMembers(roomId)
-    
     room.start()
-    return render_template('room.html', userid = userId, roomid=roomId, members=members)
+    return render_template('room.html',username=username, userid = userId, roomid=roomId, members=members)
+
+@app.route('/getroom',methods=['POST'])
+def getroom():
+    roomId = request.form['roomid']
+    userId = request.form['userid']
+    username = request.form['username']
+
+    members = model.getMembers(roomId)
+    return render_template('room.html',username=username, userid = userId, roomid=roomId, members=members)
 
 @app.route('/ping',methods=['POST'])
 def ping():
@@ -82,4 +94,6 @@ def ping():
     
     
     return 'invalid request'
+
+
    

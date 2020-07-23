@@ -46,8 +46,11 @@ class Room:
                 self.removeUser(uid)
 
     def removeUser(self,uid):
-        del self.__lastSeen[uid]
-        self.__members.remove(self.getUser(uid))
+        #del self.__lastSeen[uid]
+        try:
+            self.__members.remove(self.getUser(uid))
+        except:
+            pass
 
 
     def getUser(self,uid):
