@@ -1,40 +1,38 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Spy</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+</head>
+
 <body>
-    <input id="sessionContainer" type="hidden" value ="{{ session }}"></input>
+    <input id="sessionContainer" type="hidden" value="{{ session }}"></input>
 
-    
-    <h1 class="title has-text-primary is-1"
-        style="margin-top: 8%; align-self: center; text-align: center; font-size: 6em;">{{username}}</h1>
+    <section class="section">
+        <h1 class="title has-text-primary is-1 has-text-centered">{{username}}</h1>
+    </section>
 
-    {% if isspy%}   
-    <h1 class="title has-text-danger is-1"
-        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">You are the Spy!</h1>
+    {% if isspy%}
+    <h1 class="title has-text-danger is-1 has-text-centered">You are the Spy!</h1>
     {% else %}
-    <h1 class="title has-text-info is-1"
-        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">You are Innocent</h1>
-    <h1 class="title has-text-info is-1"
-        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">The location is {{location}}</h1>
+    <h1 class="title has-text-info is-1 has-text-centered">You are Innocent</h1>
+    <h1 class="title has-text-info is-1 has-text-centered">The location is {{location}}</h1>
     {% endif %}
 
     <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
     <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
     <input id="generalinfoContainer" type="hidden" value="member&session"></input>
 
-    <ul id="membersList">
-        {% for user in members %}
-        <li
-        class="subtitle has-text-info"
-        style="margin-left: 2%; text-align: left; font-size: 3em;">
-            {{ user.getName() }}
-        </li>
-        {% endfor %}
-    </ul>
+
+    <div class="container is-fluid">
+        <ul id="membersList">
+            {% for user in members %}
+            <li class="subtitle has-text-info mt-2">{{ user.getName() }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
     {% if isadmin%}
     <iframe name="dummyframe" id="spamIframe" style="display: none;"></iframe>
@@ -43,8 +41,14 @@
         <input type="hidden" name="userid" value="{{ userid }}"></input>
         <input type="hidden" name="username" value="{{ username }}"></input>
         <input type="hidden" name="rconpass" value="{{ rconpass }}"></input>
-        <input class="button is-primary" type="submit" value="ReRoll"
-        style="margin-top: 1%; margin-left: 35%; width: 30%; text-align: center; font-size:3em"></input>
+
+        <div class="container has-text-centered">
+            <div class="columns is-centered">
+                <div column="is-half">
+                    <button class="button is-danger is-rounded mt-3 is-size-4" type="submit">ReRoll</button>
+                </div>
+            </div>
+        </div>
     </form>
     {% endif %}
 
@@ -73,13 +77,15 @@
         console.log('rerender')
         let list = document.getElementById("membersList")
 
+
         newMembers.forEach(m => {
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(m));
             li.classList.add("subtitle");
             li.classList.add("has-text-info");
-            li.style = "margin-left: 2%; text-align: left; font-size: 3em;"
-            list.appendChild(li);
+            li.classList.add("is-3");
+            li.classList.add("mt-2");
+            list.appendChild(span);
         });
 
         let members = list.getElementsByTagName("li");
@@ -95,7 +101,7 @@
 
     function handleResponse(response) {
 
-        let newSession =parseInt(response.split('&')[1])
+        let newSession = parseInt(response.split('&')[1])
         let session = parseInt(document.getElementById("sessionContainer").value)
         if (newSession != session) {
             document.getElementById("getroomForm").submit()

@@ -8,25 +8,36 @@
 </head>
 
 <body>
-    <h1 class="title has-text-primary is-1"
-        style="margin-top: 8%; align-self: center; text-align: center; font-size: 8em;">
-        Create Room</h1>
-
-    <form id="enterForm" action="/enterwaitingroom" method="POST">
-        <input id="usernameData" type="hidden" name="username"></input>
-        <input type="hidden" name="uId" value={{uId}}></input>
-        <input id="roomIdData" type="hidden" name="roomId"></input>
-        <input id="rconpassData" type="hidden" name="rconpass" value=""></input>
-    </form>
 
 
-    <input id="usernameInput" name="username" class="input" placeholder="Name"
-        style="margin-top: 7%; margin-left: 35%; width: 30%; text-align: center; font-size:3em;"></input>
+    <section class="section is-hidden-mobile"></section>
+    <section class="section"></section>
 
-    <input type="button" onclick="createRoom()" class="button is-primary"
-        style="margin-top: 1%; margin-left: 35%; width: 30%; text-align: center; font-size:3em"
-        value="Create Room"></input>
+    <div class="container">
+        <div class="section">
+            <h1 class="title has-text-primary is-1 has-text-centered">Create Room</h1>
+        </div>
 
+        <form id="enterForm" action="/enterwaitingroom" method="POST">
+            <input id="usernameData" type="hidden" name="username"></input>
+            <input type="hidden" name="uId" value={{uId}}></input>
+            <input id="roomIdData" type="hidden" name="roomId"></input>
+            <input id="rconpassData" type="hidden" name="rconpass" value=""></input>
+        </form>
+
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <ul class="menu-list has-text-centered">
+                    <li><input id="usernameInput" name="username"
+                            class="input is-rounded mt-2 is-size-4 has-text-centered" placeholder="Name"></input>
+                    </li>
+                    <li><button type="button" onclick="createRoom()"
+                            class="button is-primary is-rounded mt-3 is-size-4">Create Room</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 </body>
 

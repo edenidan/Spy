@@ -8,24 +8,44 @@
 </head>
 
 <body>
-   
+    <div class="is-centered is-5-tablet is-4-desktop is-3-widescreen is-1-mobile">
 
-    <h1 class="title has-text-primary is-1"
-        style="margin-top: 8%; align-self: center; text-align: center; font-size: 10em;">Spy</h1>
 
-    <form style="padding: 10px;" action="/getjoinpage" method="POST">
+        <section class="section is-hidden-mobile"></section>
+        <section class="section"></section>
 
-        <input id="roomId" class="input" placeholder="Room ID" name="roomId"
-            style="margin-top: 7%; margin-left: 35%; width: 30%; text-align: center; font-size:3em;"></input>
-        <input class="button is-primary" type="submit" value="JOIN"
-            style="margin-top: 1%; margin-left: 35%; width: 30%; font-size:2em;"></input>
 
-        <input class="button notification is-link" value="Create a Room"
-            style="margin-top: 1%; margin-left: 35%; width: 30%; font-size:2em;"
-            onclick="window.location.href='/getcreatepage'"></input>
-    </form>
+        <section class="hero is-primary is-bold">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title is-size-1 has-text-centered">
+                        Spy
+                    </h1>
+                </div>
+            </div>
+        </section>
 
-    
+        <form action="/getjoinpage" method="POST">
+            <ul class="menu-list has-text-centered">
+                <div class="columns is-centered">
+                    <div class="column is-half">
+                        <div class="container">
+                            <li><input id="roomId" class="input is-primary has-text-centered is-rounded mt-6 is-size-4"
+                                    placeholder="Room ID" name="roomId" required></input></li>
+
+                            <li><button class="button is-primary is-rounded mt-2 is-size-4" type="submit">Join</button>
+                            </li>
+                            <li><button class="button is-link is-rounded mt-2 is-size-4"
+                                    onclick="window.location.href='/getcreatepage'">Create a Room</button></li>
+                        </div>
+                    </div>
+                </div>
+
+            </ul>
+        </form>
+
+    </div>
+
 </body>
 
 {% if error %}

@@ -3,7 +3,7 @@ import click
 from flask import Flask,render_template,request
 
 app = Flask(__name__)
-
+hacker_msg = 'YOU NO HACK!'
 
 @app.route('/',methods=['GET'])
 def homePage():
@@ -37,6 +37,8 @@ def enterRoom():
 
     model.enterGame(roomId,username, uId)
     members = model.getMembers(roomId)
+    if(members is None):
+        return hacker_msg
     return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,userid=uId,members=members)
 
 
@@ -63,12 +65,16 @@ def startroom():
 
     room = model.__getRoomById(roomId)
     if room.getRconpass() != rconpass:
-        return 'YOU NO HACK!'
+        return hacker_msg
 
     members = model.getMembers(roomId)
+    if(members is None):
+        return 
     room.start()
 
     IsSpy = room.isSpy(userId)
+    if(IsSpy is None):
+        return hacker_msg
     location = room.getLocation()
     return render_template('room.html',session = room.getSession(),isadmin=True,isspy=IsSpy,rconpass=rconpass, location = location,username=username, userid = userId, roomid=roomId, members=members)
 
@@ -81,9 +87,15 @@ def getroom():
 
 
     members = model.getMembers(roomId)
+    if(members is None):
+        return hacker_msg
     room = model.__getRoomById(roomId)
-    #model.time.sleep(0.5)
+    if(room is None):
+        return hacker_msg
+    
     IsSpy = room.isSpy(userId)
+    if(IsSpy is None):
+        return hacker_msg 
     location = room.getLocation()
 
     return render_template('room.html',session = room.getSession(),isadmin=room.getRconpass()==Rconpass,rconpass=Rconpass , isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
@@ -97,6 +109,8 @@ def ping():
     generalInfo = json['general']
 
     room = model.__getRoomById(roomId)
+    if(room is None):
+        return hacker_msg
     hasStarted = room.getStarted()
 
     if(generalInfo == 'pass'):
@@ -125,7 +139,9 @@ def reroll():
     rconpass = request.form['rconpass']
     
     room = model.__getRoomById(roomId)
+    if(room is None):
+        return hacker_msg
     if room.getRconpass() != rconpass:
-        return 'YOU NO HACK!'
+        return hacker_msg
     room.reroll()
     return 'Success'

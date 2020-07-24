@@ -1,33 +1,47 @@
 <html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Spy</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    </head>
-    
-    <body>
-        <h1 class= "title has-text-primary is-1"
-        style="margin-top: 8%; align-self: center; text-align: center; font-size: 8em;">
-        Joining: {{roomid}}</h1>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spy</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+</head>
 
-        <form action="/enterwaitingroom" style="padding: 10px;" method="POST">
-            <input id ="usernameInput" name="username" class="input" placeholder="Name"
-            style="margin-top: 7%; margin-left: 35%; width: 30%; text-align: center; font-size:3em;"></input>
+<body>
+
+    <section class="section is-hidden-mobile"></section>
+    <section class="section"></section>
+
+    <div class="container">
+
+        <div class="section">
+            <h1 class="title has-text-primary is-1 has-text-centered">Joining: {{roomid}}</h1>
+        </div>
+
+
+        <form action="/enterwaitingroom" method="POST">
+            
             <input type="hidden" name="uId" value="{{ uId }}"></input>
             <input type="hidden" name="roomId" value="{{ roomid }}"></input>
             <input type="hidden" name="rconpass" value=""></input>
 
-            <input class="button is-primary" type="submit" value="JOIN"
-            style="margin-top: 1%; margin-left: 35%; width: 30%; text-align: center; font-size:3em"></input>
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <ul class="menu-list has-text-centered">
+                        <li><input id="usernameInput" name="username"
+                                class="input is-rounded mt-2 is-size-4 has-text-centered" placeholder="Name"
+                                required></input></li>
+                        <li><button class="button is-primary is-rounded mt-3 is-size-4" type="submit">Join</button></li>
+                    </ul>
+                </div>
+            </div>
         </form>
+    </div>
 
+</body>
 
-    </body>
+<script>
+    document.getElementById("usernameInput").focus();
+</script>
 
-    <script>
-        document.getElementById("usernameInput").focus();
-    </script>
-    
 </html>

@@ -52,7 +52,10 @@ class Room:
 
 
     def isSpy(self,uId):
-        return self.__roles[uId] == 1 
+        try:
+            return self.__roles[uId] == 1 
+        except:
+            return None
 
     def getLocation(self):
         return self.__chosenLocation
@@ -133,7 +136,10 @@ rooms['1234'] = Room('1234')
 
 # get room by Id
 def __getRoomById(roomId):
-    return rooms[roomId]
+    try:
+        return rooms[roomId]
+    except:
+        return None
 
 # enter a waiting room 
 def enterGame(roomId,username, uId):
@@ -145,7 +151,10 @@ def enterGame(roomId,username, uId):
 
 # list of members from room by Id
 def getMembers(roomId):
-    return __getRoomById(roomId).getMembers()
+    try:
+        return __getRoomById(roomId).getMembers()
+    except:
+        return None
 
 # creates a room with a unique Id
 def generateRoom():
