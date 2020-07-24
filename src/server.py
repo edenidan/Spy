@@ -13,10 +13,14 @@ def homePage():
 @app.route('/getjoinpage',methods=['POST'])
 def join():
     roomId = request.form['roomId']
-    # generating unique user Id (uuid)
-    # this Id will be used to avoid member duplications 
-    # on page refresh
-    return render_template('joinRoom.html',roomid=roomId, uId= model.uuid())
+    if model.roomExists(roomId):
+        return render_template('joinRoom.html',roomid=roomId, uId= model.uuid())
+    
+    if roomId == '':
+        return render_template('home.html')
+
+    return render_template('home.html',error=True,errormessage='Room does not exist.')
+
 
 # returns waiting room page
 @app.route('/enterwaitingroom',methods=['POST'])
@@ -33,7 +37,6 @@ def enterRoom():
 
     model.enterGame(roomId,username, uId)
     members = model.getMembers(roomId)
-    print(members)
     return render_template('waitingRoom.html',isadmin=admin,rconpass = Rconpass,roomid = roomId ,username=username,userid=uId,members=members)
 
 
@@ -67,21 +70,23 @@ def startroom():
 
     IsSpy = room.isSpy(userId)
     location = room.getLocation()
-    return render_template('room.html',isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
+    return render_template('room.html',session = room.getSession(),isadmin=True,isspy=IsSpy,rconpass=rconpass, location = location,username=username, userid = userId, roomid=roomId, members=members)
 
 @app.route('/getroom',methods=['POST'])
 def getroom():
     roomId = request.form['roomid']
     userId = request.form['userid']
     username = request.form['username']
+    Rconpass = request.form['rconpass']
+
 
     members = model.getMembers(roomId)
     room = model.__getRoomById(roomId)
-    model.time.sleep(0.5)
+    #model.time.sleep(0.5)
     IsSpy = room.isSpy(userId)
     location = room.getLocation()
 
-    return render_template('room.html' , isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
+    return render_template('room.html',session = room.getSession(),isadmin=room.getRconpass()==Rconpass,rconpass=Rconpass , isspy=IsSpy, location = location,username=username, userid = userId, roomid=roomId, members=members)
 
 @app.route('/ping',methods=['POST'])
 def ping():
@@ -101,9 +106,26 @@ def ping():
         model.ping(roomId,uId)
         members = model.getMembers(roomId)
         return ','.join([m.getName() for m in members]) + '&' + str(hasStarted)
+
+    if(generalInfo == 'member&session'):
+        model.ping(roomId,uId)
+        members = model.getMembers(roomId)
+        s = str(room.getSession())
+        return ','.join([m.getName() for m in members]) + '&' + s
     
     
     return 'invalid request'
 
 
-   
+@app.route('/reroll',methods=['POST'])
+def reroll():
+    roomId = request.form['roomid']
+    userId = request.form['userid']
+    username = request.form['username']
+    rconpass = request.form['rconpass']
+    
+    room = model.__getRoomById(roomId)
+    if room.getRconpass() != rconpass:
+        return 'YOU NO HACK!'
+    room.reroll()
+    return 'Success'

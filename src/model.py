@@ -38,7 +38,18 @@ class Room:
         self.__id=id
         self.__rconpass = uuid()
         self.__hasStarted = False
+        self.__session = 0
         set_interval(self.timerHandler,TIMEOUT/1000)
+
+
+    def reroll(self):
+        self.__hasStarted =False
+        self.start()
+        self.__session = self.__session + 1 
+
+    def getSession(self):
+        return self.__session
+
 
     def isSpy(self,uId):
         return self.__roles[uId] == 1 
@@ -51,12 +62,16 @@ class Room:
         if self.__hasStarted == True:
             return
         self.__hasStarted = True
-        spyIndex = random.randint(0,len(self.__members)-1)
-        print(spyIndex)
-        self.__roles[self.__members[spyIndex].getId()] = 1
+        self.initRoles()
         self.__chosenLocation = locations[random.randint(0,len(locations))]
-        print(self.__chosenLocation)
         
+    def initRoles(self):
+        for id in self.__roles:
+            self.__roles[id] = 0
+
+        spyIndex = random.randint(0,len(self.__members)-1)
+        self.__roles[self.__members[spyIndex].getId()] = 1
+
 
     def timerHandler(self):
         millis = getMillis()
@@ -156,3 +171,6 @@ def ping(roomId,userId):
     if room is None:
         raise 'room doesnt exists'
     room.ping(userId)
+
+def roomExists(roomId):
+    return roomId in rooms

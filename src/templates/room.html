@@ -1,62 +1,93 @@
 <html>
-    <body>
-        <h1>you are {{ username }}</h1>
+<head>
+</head>
+<body>
+    <input id="sessionContainer" type="hidden" value ="{{ session }}"></input>
 
-        {% if isspy%}
-            <h1>you are the spy!</h1>
-        {% else %}
-            <h1>you are innocent</h1>
-            <h1>the location is {{ location }}</h1>
-        {% endif %}
+    <h1>you are {{ username }}</h1>
 
-        <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
-        <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
-        <input id="generalinfoContainer" type="hidden" value="member&start"></input>
-        <h1>room {{ roomid }}</h1>
-        
-        <ul id="membersList">
-            {% for user in members %}
-            <li>
-                {{ user.getName() }}
-            </li>
-            {% endfor %}
-        </ul>
+    {% if isspy%}
+    <h1>you are the spy!</h1>
+    {% else %}
+    <h1>you are innocent</h1>
+    <h1>the location is {{ location }}</h1>
+    {% endif %}
+
+    <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
+    <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
+    <input id="generalinfoContainer" type="hidden" value="member&session"></input>
+    <h1>room {{ roomid }}</h1>
+
+    <ul id="membersList">
+        {% for user in members %}
+        <li>
+            {{ user.getName() }}
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if isadmin%}
+    <iframe name="dummyframe" id="spamIframe" style="display: none;"></iframe>
+    <form id="rerollForm" action="/reroll" method="POST" target="dummyframe">
+        <input type="hidden" name="roomid" value="{{ roomid }}"></input>
+        <input type="hidden" name="userid" value="{{ userid }}"></input>
+        <input type="hidden" name="username" value="{{ username }}"></input>
+        <input type="hidden" name="rconpass" value="{{ rconpass }}"></input>
+        <input type="submit" value="Reroll"></input>
+    </form>
+    {% endif %}
+
+    <form id="getroomForm" action="/getroom" method="POST">
+        <input type="hidden" name="roomid" value="{{ roomid }}"></input>
+        <input type="hidden" name="userid" value="{{ userid }}"></input>
+        <input type="hidden" name="username" value="{{ username }}"></input>
+        <input type="hidden" name="rconpass" value="{{ rconpass }}"></input>
+    </form>
 
 
-    </body>
 
-    <script>
+</body>
 
-        function getMembers(){
-            let list = document.getElementById("membersList");
-            let members = list.getElementsByTagName("li");
+<script>
 
-            let arrMembers = Array.prototype.slice.call( members )
-            return arrMembers.map(x => x.innerText);
+    function getMembers() {
+        let list = document.getElementById("membersList");
+        let members = list.getElementsByTagName("li");
+
+        let arrMembers = Array.prototype.slice.call(members)
+        return arrMembers.map(x => x.innerText);
+    }
+
+    function reRender(newMembers, leftMembers) {
+        console.log('rerender')
+        let list = document.getElementById("membersList")
+
+        newMembers.forEach(m => {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(m));
+            list.appendChild(li);
+        });
+
+        let members = list.getElementsByTagName("li");
+        let arrMembers = Array.prototype.slice.call(members)
+        arrMembers.forEach(m => {
+            if (leftMembers.includes(m.innerText))
+                list.removeChild(m)
+
+        });
+
+    }
+
+
+    function handleResponse(response) {
+
+        let newSession =parseInt(response.split('&')[1])
+        let session = parseInt(document.getElementById("sessionContainer").value)
+        if (newSession != session) {
+            document.getElementById("getroomForm").submit()
         }
 
-        function reRender(newMembers,leftMembers){
-            console.log('rerender')
-            let list = document.getElementById("membersList")
-
-            newMembers.forEach(m => {
-                var li = document.createElement("li");
-                li.appendChild(document.createTextNode(m));
-                list.appendChild(li);
-            });
-
-            let members = list.getElementsByTagName("li");
-            let arrMembers = Array.prototype.slice.call( members )
-            arrMembers.forEach(m => {
-                if(leftMembers.includes(m.innerText))
-                    list.removeChild(m)
-                    
-            });
-            
-        }
-
-
-        function handleResponse(response){
+        console.log('norefresh')
 
         let newMembersList = response.split('&')[0].split(',')
         let oldMembersList = getMembers()
@@ -64,15 +95,13 @@
         let newMembers = newMembersList.filter(value => !oldMembersList.includes(value))
         let leftMembers = oldMembersList.filter(value => !newMembersList.includes(value))
 
-        console.log('new: ' + newMembers)
-        console.log('left: ' + leftMembers)
 
         if (newMembers.length != 0 || leftMembers.length != 0)
             reRender(newMembers, leftMembers)
-       }
-   </script>
+    }
+</script>
 
-    <script src="/static/scripts/pings.js"></script>
+<script src="/static/scripts/pings.js"></script>
 
-   
+
 </html>

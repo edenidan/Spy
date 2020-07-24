@@ -30,6 +30,13 @@
     
 </body>
 
+{% if error %}
+<input id="errormessageContainer" type="hidden" value="{{ errormessage }}"></input>
+<script>
+    alert(document.getElementById("errormessageContainer").value)
+</script>
+{% endif %}
+
 <script>
     document.getElementById("roomId").focus();
 </script>
