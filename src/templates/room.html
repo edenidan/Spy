@@ -1,26 +1,36 @@
 <html>
-<head>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Spy</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    </head>
 <body>
     <input id="sessionContainer" type="hidden" value ="{{ session }}"></input>
 
-    <h1>you are {{ username }}</h1>
+    
+    <h1 class="title has-text-primary is-1"
+        style="margin-top: 8%; align-self: center; text-align: center; font-size: 6em;">{{username}}</h1>
 
-    {% if isspy%}
-    <h1>you are the spy!</h1>
+    {% if isspy%}   
+    <h1 class="title has-text-danger is-1"
+        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">You are the Spy!</h1>
     {% else %}
-    <h1>you are innocent</h1>
-    <h1>the location is {{ location }}</h1>
+    <h1 class="title has-text-info is-1"
+        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">You are Innocent</h1>
+    <h1 class="title has-text-info is-1"
+        style="margin-top: 1%; align-self: center; text-align: center; font-size: 6em;">The location is {{location}}</h1>
     {% endif %}
 
     <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
     <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
     <input id="generalinfoContainer" type="hidden" value="member&session"></input>
-    <h1>room {{ roomid }}</h1>
 
     <ul id="membersList">
         {% for user in members %}
-        <li>
+        <li
+        class="subtitle has-text-success"
+        style="margin-left: 2%; text-align: left; font-size: 3em;">
             {{ user.getName() }}
         </li>
         {% endfor %}
@@ -33,7 +43,8 @@
         <input type="hidden" name="userid" value="{{ userid }}"></input>
         <input type="hidden" name="username" value="{{ username }}"></input>
         <input type="hidden" name="rconpass" value="{{ rconpass }}"></input>
-        <input type="submit" value="Reroll"></input>
+        <input class="button is-primary" type="submit" value="ReRoll"
+        style="margin-top: 1%; margin-left: 35%; width: 30%; text-align: center; font-size:3em"></input>
     </form>
     {% endif %}
 
