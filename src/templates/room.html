@@ -29,7 +29,7 @@
     <ul id="membersList">
         {% for user in members %}
         <li
-        class="subtitle has-text-success"
+        class="subtitle has-text-info"
         style="margin-left: 2%; text-align: left; font-size: 3em;">
             {{ user.getName() }}
         </li>
@@ -76,6 +76,9 @@
         newMembers.forEach(m => {
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(m));
+            li.classList.add("subtitle");
+            li.classList.add("has-text-info");
+            li.style = "margin-left: 2%; text-align: left; font-size: 3em;"
             list.appendChild(li);
         });
 

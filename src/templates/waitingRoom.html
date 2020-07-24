@@ -1,15 +1,24 @@
 <html>
-
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Spy</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    </head>
 <body>
-    <h1>you are {{ username }}</h1>
     <input id="useridContainer" type="hidden" value="{{ userid }}"></input>
     <input id="roomidContainer" type="hidden" value="{{ roomid }}"></input>
     <input id="generalinfoContainer" type="hidden" value="member&start"></input>
-    <h1>room {{ roomid }}</h1>
+
+    <h1 class= "title has-text-primary is-1"
+        style="margin-top: 8%; align-self: center; text-align: center; font-size: 8em;">
+        Joining: {{roomid}}</h1>
 
     <ul id="membersList">
         {% for user in members %}
-        <li>
+        <li
+        class="subtitle has-text-info"
+        style="margin-left: 2%; text-align: left; font-size: 3em;">
             {{ user.getName() }}
         </li>
         {% endfor %}
@@ -21,9 +30,14 @@
         <input type="hidden" name="roomid" value="{{ roomid }}"></input>
         <input type="hidden" name="userid" value="{{ userid }}"></input>
         <input type="hidden" name="username" value="{{ username }}"></input>
-        <input type="submit" value="start"></input>
+        <input class="button is-danger" type="submit" value="Start"
+        style="margin-top: 5%; margin-left: 42%; width: 16%; font-size:2em;"></input>
     </form>
     {% else %}
+
+    <h1 class="title has-text-primary is-1"
+        style="margin-top: 8%; align-self: center; text-align: center; font-size: 4em;">Waiting for host...</h1>
+        
     <form id="getroomForm" action="/getroom" method="POST">
         <input type="hidden" name="roomid" value="{{ roomid }}"></input>
         <input type="hidden" name="userid" value="{{ userid }}"></input>
@@ -52,6 +66,9 @@
         newMembers.forEach(m => {
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(m));
+            li.classList.add("subtitle");
+            li.classList.add("has-text-info");
+            li.style = "margin-left: 2%; text-align: left; font-size: 3em;"
             list.appendChild(li);
         });
 
