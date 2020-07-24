@@ -1,200 +1,56 @@
-Kabul
-Tirana (Tirane)
-Algiers
-Andorra la Vella
-Luanda
-Saint John's
-Buenos Aires
-Yerevan
-Canberra
-Vienna
-Baku
-Nassau
-Manama
-Dhaka
-Bridgetown
-Minsk
-Brussels
-Belmopan
-Porto Novo[1]
-Thimphu
-La Paz (administrative), Sucre (official)[2]
-Sarajevo
-Gaborone
-Brasilia
-Bandar Seri Begawan
-Sofia
-Ouagadougou
-Gitega[3]
-Phnom Penh
-Yaounde
-Ottawa
-Praia
-Bangui
-N'Djamena
-Santiago
-Beijing
-Bogota
-Moroni
-Kinshasa
-Brazzaville
-San Jose
-Yamoussoukro[4]
-Zagreb
-Havana
-Nicosia
-Prague
-Copenhagen
-Djibouti
-Roseau
-Santo Domingo
-Dili
-Quito
-Cairo
-San Salvador
-London
-Malabo
-Asmara
-Tallinn
-Mbabana[8]
-Addis Ababa
-Palikir
-Suva
-Helsinki
-Paris
-Libreville
-Banjul
-Tbilisi
-Berlin
-Accra
-Athens
-Saint George's
-Guatemala City
-Conakry
-Bissau
-Georgetown
-Port au Prince
-Tegucigalpa
-Budapest
-Reykjavik
-New Delhi
-Jakarta
-Tehran
-Baghdad
-Dublin
-Jerusalem (very limited international recognition)[9]
-Rome
-Kingston
+Rishon LeZion
+Tel Aviv
+SuperMarket
+4x4 Beach Rishon LeZion
+Strip Club
+Bney Brak
+Beit Shemesh
+Sinay
+Holon
+Haifa
+JumpPark
+New York
 Tokyo
-Amman
-Nur-Sultan[10]
-Nairobi
-Tarawa Atoll
-Pristina
-Kuwait City
-Bishkek
-Vientiane
-Riga
-Beirut
-Maseru
-Monrovia
-Tripoli
-Vaduz
-Vilnius
-Luxembourg
-Antananarivo
-Lilongwe
-Kuala Lumpur[11]
-Male
-Bamako
-Valletta
-Majuro
-Nouakchott
-Port Louis
-Mexico City
-Chisinau
-Monaco
-Ulaanbaatar
-Podgorica
-Rabat
-Maputo
-Nay Pyi Taw[12]
-Windhoek
-No official capital
-Kathmandu
-Amsterdam[13]
-Wellington
-Managua
-Niamey
-Abuja
-Pyongyang
-Skopje
-Belfast
-Oslo
-Muscat
-Islamabad
-Melekeok
-Panama City
-Port Moresby
-Asuncion
-Lima
-Manila
-Warsaw
-Lisbon
-Doha
-Bucharest
-Moscow
-Kigali
-Basseterre
-Castries
-Kingstown
-Apia
-San Marino
-Sao Tome
-Riyadh
-Edinburgh
-Dakar
-Belgrade
-Victoria
-Freetown
-Singapore
-Bratislava
-Ljubljana
-Honiara
-Mogadishu
-Pretoria, Bloemfontein, Cape Town[17]
-Seoul
-Juba
-Madrid
-Colombo[18]
-Khartoum
-Paramaribo
-Stockholm
-Bern
-Damascus
-Taipei
-Dushanbe
-Dodoma[20]
-Bangkok
-Lome
-Nuku'alofa
-Port of Spain
-Tunis
-Ankara
-Ashgabat
-Funafuti[21]
-Kampala
-Kiev
-Abu Dhabi
-London
-Washington D.C.
-Montevideo
-Tashkent
-Port Vila
-Vatican City
-Caracas
-Hanoi
-Cardiff
-Sana'a[23]
-Lusaka
-Harare
+The Garage Resturant
+Jerusalem
+The Sahara Desert
+The Western Wall (Hakotel Ha Ma'aravi)
+Temple
+Givat Ha Tahmoshet
+Pinat Ha Shlosha Toro Grill
+McDonalds
+Ha Kirya (General-Intelligence military base in Tel Aviv)
+Poland
+Germany
+Uganda
+Somalia
+France
+England
+Sweden
+Cyprus
+Middle East
+Europe
+Asia
+North America (America)
+South America
+Brazil
+Gaza Strip
+Hebron (Hevron)
+Wine Festival
+Kineret
+Sea of Death (Yam ha Melah)
+Canada
+Alaska
+Hawaii
+King David Hotel
+Eilat
+Vietnam
+American Burger Resturant
+South Tel Aviv
+Ezra and sons (Ezra ve Banav)
+Deli Cream
+Iran
+Russia
+Hiria (Trash Factory)
+Favela (Poor slum shit holes in South America)
+

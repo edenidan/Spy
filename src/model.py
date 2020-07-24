@@ -51,7 +51,8 @@ class Room:
         if self.__hasStarted == True:
             return
         self.__hasStarted = True
-        spyIndex = random.randint(0,len(self.__members))
+        spyIndex = random.randint(0,len(self.__members)-1)
+        print(spyIndex)
         self.__roles[self.__members[spyIndex].getId()] = 1
         self.__chosenLocation = locations[random.randint(0,len(locations))]
         print(self.__chosenLocation)
