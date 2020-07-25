@@ -10,17 +10,14 @@ locationsFile = open('res/locations.txt')
 locations = locationsFile.readlines()
 locationsFile.close()
 
-def set_interval(func, sec):
+def set_interval(func, sec,roomCalled):
     def func_wrapper():
-        set_interval(func, sec)
+        set_interval(func, sec,roomCalled)
         func()
     t = threading.Timer(sec, func_wrapper)
     t.start()
+    roomCalled.setCurrentTimer(t)
     return t
-
-def t():
-    print('threads ' + str(threading.active_count()))
-set_interval(t,5)
 
 
 
@@ -45,8 +42,11 @@ class Room:
         self.__rconpass = uuid()
         self.__hasStarted = False
         self.__session = 0
-        self.__backgroundJob = set_interval(self.timerHandler,TIMEOUT/1000)
+        self.__latestTimer = None
+        set_interval(self.timerHandler,TIMEOUT/1000,self)
 
+    def setCurrentTimer(self,t):
+        self.__latestTimer = t
 
     def reroll(self):
         self.__hasStarted =False
@@ -83,17 +83,19 @@ class Room:
 
 
     def timerHandler(self):
+        print('backgroud job room ' + self.__id)
         millis = getMillis()
         for uid in self.__lastSeen:
             if millis - self.__lastSeen[uid] > TIMEOUT:
                 if uid is None:
                     self.__delete()
-                self.removeUser(uid)
+                else:
+                    self.removeUser(uid)
 
     def __delete(self):
+        print('deleting myself ' + self.__id)
         try:
-            self.__backgroundJob.cancel()
-            self.__backgroundJob.join()
+            self.__latestTimer.cancel()
             del rooms[self.__id]
             del self
         except:
@@ -151,7 +153,7 @@ class Room:
 
 rooms = {}# id : room
 
-rooms['1234'] = Room('1234')
+#rooms['1234'] = Room('1234')
 
 # get room by Id
 def __getRoomById(roomId):
