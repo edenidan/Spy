@@ -25,7 +25,7 @@
     <div class="container is-fluid">
         <ul id="membersList">
             {% for user in members %}
-            <li class="subtitle has-text-info mt-2">{{ user.getName() }}</li>
+            <li class="subtitle has-text-info is-3 mt-2">{{ user.getName() }}</li>
             {% endfor %}
         </ul>
     </div>
@@ -79,7 +79,6 @@
     }
 
     function reRender(newMembers, leftMembers) {
-        console.log('rerender')
         let list = document.getElementById("membersList")
 
         newMembers.forEach(m => {
@@ -89,7 +88,7 @@
             li.classList.add("has-text-info");
             li.classList.add("is-3");
             li.classList.add("mt-2");
-            list.appendChild(span);
+            list.appendChild(li);
         });
 
         let members = list.getElementsByTagName("li");
@@ -108,7 +107,6 @@
 
     function handleResponse(response) {
 
-        console.log(response)
         let hasStarted = response.split('&')[1] === "True"
 
         if (hasStarted) {
@@ -123,8 +121,6 @@
         let newMembers = newMembersList.filter(value => !oldMembersList.includes(value))
         let leftMembers = oldMembersList.filter(value => !newMembersList.includes(value))
 
-        console.log('new: ' + newMembers)
-        console.log('left: ' + leftMembers)
 
         if (newMembers.length != 0 || leftMembers.length != 0)
             reRender(newMembers, leftMembers)

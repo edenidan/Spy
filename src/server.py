@@ -30,6 +30,12 @@ def enterRoom():
     uId = request.form['uId']
     Rconpass = request.form['rconpass']
 
+    room = model.__getRoomById(roomId)
+    if(room is None):
+        return hacker_msg
+    if room.getStarted():
+        return render_template('home.html',error=True,errormessage='Room has already started')
+
     #if the client has the correct password he will have the start button on the waiting room
     admin = False
     if model.correctRconpass(roomId,Rconpass):

@@ -18,6 +18,12 @@ def set_interval(func, sec):
     t.start()
     return t
 
+def t():
+    print('threads ' + str(threading.active_count()))
+set_interval(t,5)
+
+
+
 class User:
     def __init__(self,name,uId):
         self.__name=name
@@ -39,7 +45,7 @@ class Room:
         self.__rconpass = uuid()
         self.__hasStarted = False
         self.__session = 0
-        set_interval(self.timerHandler,TIMEOUT/1000)
+        self.__backgroundJob = set_interval(self.timerHandler,TIMEOUT/1000)
 
 
     def reroll(self):
@@ -80,7 +86,19 @@ class Room:
         millis = getMillis()
         for uid in self.__lastSeen:
             if millis - self.__lastSeen[uid] > TIMEOUT:
+                if uid is None:
+                    self.__delete()
                 self.removeUser(uid)
+
+    def __delete(self):
+        try:
+            self.__backgroundJob.cancel()
+            self.__backgroundJob.join()
+            del rooms[self.__id]
+            del self
+        except:
+            pass
+
 
     def removeUser(self,uid):
         #del self.__lastSeen[uid]
@@ -127,6 +145,7 @@ class Room:
     
     def ping(self,uId):
         self.__lastSeen[uId] = getMillis()
+        self.__lastSeen[None] = getMillis()
         
 
 
