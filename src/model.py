@@ -83,7 +83,7 @@ class Room:
 
 
     def timerHandler(self):
-        print('backgroud job room ' + self.__id)
+        print('background job room ' + self.__id)
         millis = getMillis()
         for uid in self.__lastSeen:
             if millis - self.__lastSeen[uid] > TIMEOUT:
